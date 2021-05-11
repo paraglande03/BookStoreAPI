@@ -39,5 +39,24 @@ public class BookStoreService implements IBookStoreService {
 		Book bookData = this.getBookDataByBookId(bookId);
 		bookstoreRepository.delete(bookData);
 	}
+	@Override
+	public Book updateBookDataByBookId(long bookId, BookDTO bookDTO) {
+		Book bookData = this.getBookDataByBookId(bookId);
+		bookData.updateBookDataByBookId(bookDTO);
+		return bookstoreRepository.save(bookData);
+	}
 
+	public long count() {
+		return bookstoreRepository.count();
+	}
+
+
+	@Override
+	public List<Book> getBooksByBookName(String bookName) {
+		List<Book> booksList = bookstoreRepository.findBooksByBookName(bookName);
+		if (booksList.isEmpty()) {
+			return null;
+		}
+		return booksList;
+	}
 }
