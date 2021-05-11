@@ -26,7 +26,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
     }
 
     private Predicate<String> postPaths() {
-        return or(regex("/book.*") );
+        return or(regex("/book.*") );//we can more controller
     }
 
     private ApiInfo apiInfo() {
