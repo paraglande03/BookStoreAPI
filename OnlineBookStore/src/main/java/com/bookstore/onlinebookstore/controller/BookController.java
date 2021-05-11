@@ -61,4 +61,19 @@ public class BookController {
         Book booksList = bookStoreService.updateBookDataByBookId(bookId, bookDTO);
         return new ResponseEntity<>(new Response( "Updated book data successfully!!", booksList), HttpStatus.OK);
     }
+	@ApiOperation("For counting number of records in database")
+	@GetMapping("/count")
+	public ResponseEntity<Response> list() {
+		long count = bookStoreService.count();
+		return new ResponseEntity<>(new Response("Got count of books successfully!!", count), HttpStatus.OK);
+	}
+	@ApiOperation("To get book by book name")
+	@GetMapping("/getBookList/{bookName}")
+	public ResponseEntity<Response> getBookDataByBookName(@PathVariable("bookName") String bookName) {
+		List<Book> books = bookStoreService.getBooksByBookName(bookName);
+		if (books != null)
+			return new ResponseEntity<>(new Response("Get call for book successfull", books), HttpStatus.OK);
+		else
+			return new ResponseEntity<>(new Response("Book does not exists!!"), HttpStatus.NOT_ACCEPTABLE);
+	}
 }

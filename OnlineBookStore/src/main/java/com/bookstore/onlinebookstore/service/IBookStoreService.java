@@ -16,4 +16,9 @@ public interface IBookStoreService {
 	public void deleteBookDataByBookId(long bookId);
 
     public Book updateBookDataByBookId(long bookId, BookDTO bookDTO);
+
+    long count();
+
+    List<Book> getBooksByBookName(String bookName);
+
 }
