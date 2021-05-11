@@ -7,7 +7,7 @@ import com.bookstore.onlinebookstore.dto.BookDTO;
 import com.bookstore.onlinebookstore.dto.Response;
 import com.bookstore.onlinebookstore.model.Book;
 import com.bookstore.onlinebookstore.service.IBookStoreService;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@CrossOrigin(allowedHeaders = "*", origins = "*")
+
 @RequestMapping("/book")
 public class BookController {
 
