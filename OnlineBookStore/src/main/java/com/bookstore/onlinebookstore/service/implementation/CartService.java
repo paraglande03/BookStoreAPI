@@ -2,6 +2,7 @@ package com.bookstore.onlinebookstore.service.implementation;
 
 import com.bookstore.onlinebookstore.model.Book;
 import com.bookstore.onlinebookstore.model.Cart;
+import com.bookstore.onlinebookstore.repository.BookStoreRepository;
 import com.bookstore.onlinebookstore.service.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +18,7 @@ public class CartService implements ICartService {
 
     @Override
     public Cart addBookToCart(String token, Long bookId, Integer order_quantity) {
-        Long userId = JwtGenerator.decodeJWT(token);
+//        Long userId = JwtGenerator.decodeJWT(token);
         Book book = bookStoreRepository.findById(bookId).orElse(null);
         if (book == null || book.getQuantity() == 0)
             return null;
