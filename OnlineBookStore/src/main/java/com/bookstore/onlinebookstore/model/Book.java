@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.bookstore.onlinebookstore.dto.BookDTO;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -45,5 +46,19 @@ public class Book {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_date_and_time")
 	private Date updatedDateAndTime;
+
+	public Book(BookDTO bookDTO) {
+		this.updateBookDataByBookId(bookDTO);
+	}
+
+	public void updateBookDataByBookId(BookDTO bookDTO) {
+
+		this.authorName = bookDTO.authorName;
+		this.bookName = bookDTO.bookName;
+		this.quantity = bookDTO.quantity;
+		this.price = bookDTO.price;
+		this.bookDetails = bookDTO.bookDetails;
+
+	}
 
 }
