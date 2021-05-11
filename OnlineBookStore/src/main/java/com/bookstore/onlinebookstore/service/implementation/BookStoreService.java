@@ -39,5 +39,10 @@ public class BookStoreService implements IBookStoreService {
 		Book bookData = this.getBookDataByBookId(bookId);
 		bookstoreRepository.delete(bookData);
 	}
-
+	@Override
+	public Book updateBookDataByBookId(long bookId, BookDTO bookDTO) {
+		Book bookData = this.getBookDataByBookId(bookId);
+		bookData.updateBookDataByBookId(bookDTO);
+		return bookstoreRepository.save(bookData);
+	}
 }

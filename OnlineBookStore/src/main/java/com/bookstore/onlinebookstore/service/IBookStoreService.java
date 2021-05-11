@@ -14,4 +14,6 @@ public interface IBookStoreService {
 	public Book getBookDataByBookId(long bookId);
 
 	public void deleteBookDataByBookId(long bookId);
+
+    public Book updateBookDataByBookId(long bookId, BookDTO bookDTO);
 }
