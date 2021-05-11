@@ -17,8 +17,7 @@ public interface BookStoreRepository extends JpaRepository<Book, Long> {
     @Modifying
     public void updateQuantityAfterOrder(Integer quantity, Long bookId);
 
-    @Query(value = "select * from book order by created_date_and_time desc", nativeQuery = true)
-    public List<Book> findBookOrderByCreatedDateAndTimeDesc();
+
 
     @Query(value = "select * from book where book_name LIKE %?1% ", nativeQuery = true)
     public List<Book> findBooksByBookName(String bookName);
