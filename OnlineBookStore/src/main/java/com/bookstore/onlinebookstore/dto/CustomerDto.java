@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class CustomerDto {
 
+
 	private String fullName;
 	private String phoneNumber;
 	private String locality;
@@ -16,5 +17,5 @@ public class CustomerDto {
 	private String state;
 	private String locationType;
 	private long pinCode;
-
+	private int userId;
 }

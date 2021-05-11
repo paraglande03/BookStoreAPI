@@ -35,6 +35,7 @@ public @Data class Order {
 
     public Order(Long orderId,  List<Cart> cartItems, double totalPrice) {
         this.orderId = orderId;
+
         this.totalPrice = totalPrice;
     }
 
