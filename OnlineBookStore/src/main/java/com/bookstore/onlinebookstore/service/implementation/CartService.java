@@ -5,7 +5,9 @@ import com.bookstore.onlinebookstore.model.Book;
 import com.bookstore.onlinebookstore.model.Cart;
 import com.bookstore.onlinebookstore.repository.BookStoreRepository;
 import com.bookstore.onlinebookstore.repository.CartRepository;
+import com.bookstore.onlinebookstore.repository.UserRepository;
 import com.bookstore.onlinebookstore.service.ICartService;
+import com.bookstore.onlinebookstore.uitility.JwtGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -21,16 +23,19 @@ public class CartService implements ICartService {
     @Autowired
     private BookStoreRepository bookStoreRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
 
 
     @Override
     public Cart addBookToCart(String token, Long bookId, Integer order_quantity) {
-//        Long userId = JwtGenerator.decodeJWT(token);
+        Long userId = JwtGenerator.decodeJWT(token);
         Book book = bookStoreRepository.findById(bookId).orElse(null);
         if (book == null || book.getQuantity() == 0)
             return null;
         else {
-            User user = userRepository.findById(userId).orElse(null);
+            UserService user = userRepository.findById(userId).orElse(null);
 
             Cart cartItem = cartRepository.findByUserIdAndBookId(userId, bookId);
 
@@ -110,16 +115,16 @@ public class CartService implements ICartService {
                 if (book == null)
                     return null;
                 Cart cart = new Cart();
-                User user = userRepository.findById(userId).orElse(null);
+                UserService user = userRepository.findById(userId).orElse(null);
                 cart.setUser(user);
                 cart.setBook(book);
                 cart.setOrderQuantity(1);
                 cart.setInWishList(true);
                 cartRepository.save(cart);
-                return new Response(200, "Book added to WishList");
+                return new Response( "Book added to WishList");
             }
         }
-        return new Response(200, "Book already present in wishlist");
+        return new Response( "Book already present in wishlist");
     }
 
     @Override
@@ -142,7 +147,7 @@ public class CartService implements ICartService {
         if (cartItem.isInWishList()) {
             cartItem.setInWishList(false);
             cartRepository.save(cartItem);
-            return new Response(HttpStatus.OK.value(), "Successfully added book fromwishlist to cart.");
+            return new Response( "Successfully added book from wishlist to cart.");
         }
         return new Response( "Already present in cart, ready to checkout");
     }

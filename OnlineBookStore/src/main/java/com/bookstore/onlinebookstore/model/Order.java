@@ -33,8 +33,9 @@ public @Data class Order {
 //	@OneToMany()
 //	public List<Cart> cartItems;
 
-    public Order(Long orderId,  List<Cart> cartItems, double totalPrice) {
+    public Order(Long orderId, Long userId, List<Cart> cartItems, double totalPrice) {
         this.orderId = orderId;
+        this.userId = userId;
         this.totalPrice = totalPrice;
     }
 

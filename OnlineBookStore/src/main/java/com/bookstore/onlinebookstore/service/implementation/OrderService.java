@@ -2,11 +2,16 @@ package com.bookstore.onlinebookstore.service.implementation;
 
 import com.bookstore.onlinebookstore.model.Cart;
 import com.bookstore.onlinebookstore.model.Order;
+import com.bookstore.onlinebookstore.model.User;
 import com.bookstore.onlinebookstore.repository.CartRepository;
 import com.bookstore.onlinebookstore.repository.OrderRepository;
+import com.bookstore.onlinebookstore.repository.UserRepository;
 import com.bookstore.onlinebookstore.service.IOrderService;
+import com.bookstore.onlinebookstore.uitility.JwtGenerator;
+import com.bookstore.onlinebookstore.uitility.MailData;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -19,6 +24,15 @@ public class OrderService implements IOrderService {
     @Autowired
     private CartRepository cartRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private MailData mailData;
+
+    @Autowired
+    private User user;
+
     @Override
     public Order getSummary(String token) {
         Long userId = JwtGenerator.decodeJWT(token);
@@ -29,7 +43,7 @@ public class OrderService implements IOrderService {
     @Override
     public Long placeOrder(String token) {
         Long userId = JwtGenerator.decodeJWT(token);
-        User user = userRepository.findById(userId).orElse(null);
+        UserService user = userRepository.findById(userId).orElse(null);
 
         Long orderId = (long) 0;
         boolean isorderIdUnique = false;
