@@ -10,4 +10,8 @@ public interface IBookStoreService {
     public List<Book> getAllBooks();
 
     public Book createBookData(BookDTO bookDTO);
+
+	public Book getBookDataByBookId(long bookId);
+
+	public void deleteBookDataByBookId(long bookId);
 }

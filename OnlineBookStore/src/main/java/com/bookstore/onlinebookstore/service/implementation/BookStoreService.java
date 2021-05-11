@@ -9,29 +9,35 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
-
 @Service
-    public class BookStoreService implements IBookStoreService {
-        @Autowired
-        public BookStoreRepository bookstoreRepository;
+public class BookStoreService implements IBookStoreService {
+	@Autowired
+	public BookStoreRepository bookstoreRepository;
 
-        @Override
-        public List<Book> getAllBooks() {
-            List<Book> booksList = bookstoreRepository.findAll();
-            if (booksList.isEmpty()) {
-                return null;
-            }
-            return booksList;
-        }
+	@Override
+	public List<Book> getAllBooks() {
+		List<Book> booksList = bookstoreRepository.findAll();
+		if (booksList.isEmpty()) {
+			return null;
+		}
+		return booksList;
+	}
 
+	@Override
+	public Book createBookData(BookDTO bookDTO) {
+		Book bookData = null;
+		bookData = new Book(bookDTO);
+		return bookstoreRepository.save(bookData);
+	}
 
-    @Override
-    public Book createBookData(BookDTO bookDTO) {
-        Book bookData = null;
-        bookData = new Book(bookDTO);
-        return bookstoreRepository.save(bookData);
-    }
+	public Book getBookDataByBookId(long bookId) {
+		return bookstoreRepository.findById(bookId).orElse(null);
+	}
 
-    }
+	@Override
+	public void deleteBookDataByBookId(long bookId) {
+		Book bookData = this.getBookDataByBookId(bookId);
+		bookstoreRepository.delete(bookData);
+	}
 
+}
