@@ -6,6 +6,8 @@ import com.bookstore.onlinebookstore.repository.BookStoreRepository;
 import com.bookstore.onlinebookstore.service.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 public class CartService implements ICartService {
 
     @Autowired
