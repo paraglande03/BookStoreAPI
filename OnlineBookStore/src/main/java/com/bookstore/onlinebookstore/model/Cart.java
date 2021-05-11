@@ -29,9 +29,7 @@ public class Cart {
 	@JoinColumn(name = "book_id")
 	private Book book;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+
 
 	private Integer orderQuantity;
 

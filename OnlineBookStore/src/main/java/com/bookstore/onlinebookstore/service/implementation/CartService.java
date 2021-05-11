@@ -5,11 +5,8 @@ import com.bookstore.onlinebookstore.model.Book;
 import com.bookstore.onlinebookstore.model.Cart;
 import com.bookstore.onlinebookstore.repository.BookStoreRepository;
 import com.bookstore.onlinebookstore.repository.CartRepository;
-import com.bookstore.onlinebookstore.repository.UserRepository;
 import com.bookstore.onlinebookstore.service.ICartService;
-import com.bookstore.onlinebookstore.uitility.JwtGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +20,18 @@ public class CartService implements ICartService {
     @Autowired
     private BookStoreRepository bookStoreRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+
 
 
 
     @Override
-    public Cart addBookToCart(String token, Long bookId, Integer order_quantity) {
-        Long userId = JwtGenerator.decodeJWT(token);
+    public Cart addBookToCart( Long bookId, Integer order_quantity,long userId) {
+
         Book book = bookStoreRepository.findById(bookId).orElse(null);
         if (book == null || book.getQuantity() == 0)
             return null;
         else {
-            UserService user = userRepository.findById(userId).orElse(null);
+
 
             Cart cartItem = cartRepository.findByUserIdAndBookId(userId, bookId);
 
@@ -44,7 +40,7 @@ public class CartService implements ICartService {
             } else {
                 cartItem = new Cart();
                 cartItem.setOrderQuantity(order_quantity);
-                cartItem.setUser(user);
+
                 cartItem.setBook(book);
                 bookStoreRepository.updateQuantityAfterOrder(book.getQuantity() - order_quantity, bookId);
 
@@ -55,7 +51,7 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public String updateOrderQuantity(Long bookId, Integer order_quantity, String token) {
+    public String updateOrderQuantity(Long bookId, Integer order_quantity) {
 //        Long userId = JwtGenerator.decodeJWT(token);
         Book book = bookStoreRepository.findById(bookId).orElse(null);
         if (book == null)
@@ -63,7 +59,7 @@ public class CartService implements ICartService {
         else {
             double subtotal = 0;
             if (book.getQuantity() >= order_quantity) {
-                cartRepository.updateOrderQuantity(order_quantity, bookId, userId);
+                cartRepository.updateOrderQuantity(order_quantity, bookId);
                 subtotal = book.getPrice() * order_quantity;
                 bookStoreRepository.updateQuantityAfterOrder(book.getQuantity() - order_quantity+1, bookId);
                 return String.valueOf(subtotal);
@@ -74,14 +70,14 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public List<Cart> listCartItems(String token) {
-        Long userId = JwtGenerator.decodeJWT(token);
+    public List<Cart> listCartItems(long userId) {
+
         return cartRepository.findByUserId(userId);
     }
 
     @Override
-    public void removeProduct(Long bookId, String token) {
-        Long userId = JwtGenerator.decodeJWT(token);
+    public void removeProduct(Long bookId, long userId) {
+
         Book book = bookStoreRepository.findById(bookId).orElse(null);
         if (book == null)
             return ;
@@ -91,8 +87,8 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public List<Cart> getAllBooksFromWishList(String token) {
-        Long userId = JwtGenerator.decodeJWT(token);
+    public List<Cart> getAllBooksFromWishList(long userId) {
+
         List<Cart> cartItems = cartRepository.findByUserId(userId).stream().filter(Cart::isInWishList)
                 .collect(Collectors.toList());
         if (cartItems.isEmpty())
@@ -101,8 +97,7 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public Response addBookToWishList(Long bookId, String token) {
-        Long userId = JwtGenerator.decodeJWT(token);
+    public Response addBookToWishList(Long bookId,  Long userId) {
         Cart cartItem = cartRepository.findByUserIdAndBookId(userId, bookId);
         Long cartBookId = cartRepository.findDuplicateBookId(bookId);
         if (cartBookId != bookId) {
@@ -115,8 +110,7 @@ public class CartService implements ICartService {
                 if (book == null)
                     return null;
                 Cart cart = new Cart();
-                UserService user = userRepository.findById(userId).orElse(null);
-                cart.setUser(user);
+
                 cart.setBook(book);
                 cart.setOrderQuantity(1);
                 cart.setInWishList(true);
@@ -128,8 +122,8 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public List<Cart> deleteBookFromWishlist(Long bookId, String token) {
-        Long userId = JwtGenerator.decodeJWT(token);
+    public List<Cart> deleteBookFromWishlist(Long bookId,  Long userId) {
+
         List<Cart> cartItems = cartRepository.findByUserId(userId).stream().filter(Cart::isInWishList)
                 .collect(Collectors.toList());
         List<Cart> selectedItems = cartItems.stream().filter(cartItem -> cartItem.getBook().getBookId().equals(bookId))
@@ -141,8 +135,8 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public Response addBookFromWishlistToCart(Long bookId, String token) {
-        Long userId = JwtGenerator.decodeJWT(token);
+    public Response addBookFromWishlistToCart(Long bookId, String token, long userId) {
+
         Cart cartItem = cartRepository.findByUserIdAndBookId(userId, bookId);
         if (cartItem.isInWishList()) {
             cartItem.setInWishList(false);

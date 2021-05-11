@@ -17,4 +17,5 @@ public class CustomerDto {
 	private String state;
 	private String locationType;
 	private long pinCode;
+	private int userId;
 }

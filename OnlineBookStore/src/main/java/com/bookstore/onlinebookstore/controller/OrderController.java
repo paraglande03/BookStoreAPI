@@ -19,20 +19,20 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/order")
 public class OrderController {
 
-    @Autowired
-    private IOrderService orderService;
-
-    @ApiOperation("For getting order summary")
-    @GetMapping("/summary")
-    public ResponseEntity<Response> getOrderSummary(@RequestHeader String token) {
-        Order orderDetails = orderService.getSummary(token);
-        return new ResponseEntity<>(new Response( "Got order summary successfully", orderDetails), HttpStatus.OK);
-    }
-
-    @ApiOperation("For placing order")
-    @PostMapping("/place")
-    public ResponseEntity<Response> placeOrder(@RequestHeader String token) {
-        Long orderId = orderService.placeOrder(token);
-        return new ResponseEntity<>(new Response("Order placed successfully with order id : ", orderId), HttpStatus.OK);
-    }
+//    @Autowired
+//    private IOrderService orderService;
+//
+//    @ApiOperation("For getting order summary")
+//    @GetMapping("/summary")
+//    public ResponseEntity<Response> getOrderSummary(@RequestHeader String token) {
+//        Order orderDetails = orderService.getSummary(token);
+//        return new ResponseEntity<>(new Response( "Got order summary successfully", orderDetails), HttpStatus.OK);
+//    }
+//
+//    @ApiOperation("For placing order")
+//    @PostMapping("/place")
+//    public ResponseEntity<Response> placeOrder(@RequestHeader String token) {
+//        Long orderId = orderService.placeOrder(token);
+//        return new ResponseEntity<>(new Response("Order placed successfully with order id : ", orderId), HttpStatus.OK);
+//    }
 }

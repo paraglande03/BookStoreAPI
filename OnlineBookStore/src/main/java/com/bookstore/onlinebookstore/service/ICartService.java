@@ -7,19 +7,19 @@ import java.util.List;
 
 public interface ICartService {
 
-    Cart addBookToCart(String token, Long bookId, Integer order_quantity);
+    Cart addBookToCart( Long bookId, Integer order_quantity,long userId);
 
-    String updateOrderQuantity(Long bookId, Integer orderQuantity, String token);
+    String updateOrderQuantity(Long bookId, Integer orderQuantity);
 
-    List<Cart> listCartItems(String token);
+    public List<Cart> listCartItems(long userId);
 
-    void removeProduct(Long bookId, String token);
+    void removeProduct(Long bookId,long userId);
 
-    List<Cart> getAllBooksFromWishList(String token);
+    List<Cart> getAllBooksFromWishList(long userId);
 
-    Response addBookToWishList(Long bookId, String token);
+    public Response addBookToWishList(Long bookId,  Long userId);
 
-    List<Cart> deleteBookFromWishlist(Long bookId, String token);
+    public List<Cart> deleteBookFromWishlist(Long bookId,  Long userId);
 
-    Response addBookFromWishlistToCart(Long bookId, String token);
+    public Response addBookFromWishlistToCart(Long bookId, String token, long userId);
 }

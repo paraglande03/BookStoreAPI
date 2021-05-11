@@ -4,7 +4,7 @@ import com.bookstore.onlinebookstore.dto.CustomerDto;
 import com.bookstore.onlinebookstore.model.Customer;
 
 public interface ICustomerService {
-    Customer getCustomerDetails(String token);
+    Customer getCustomerDetails(Long userId);
 
-    String addCustomerDetails(String token, CustomerDto customerDetails);
+    String addCustomerDetails( CustomerDto customerDetails,Long userId);
 }

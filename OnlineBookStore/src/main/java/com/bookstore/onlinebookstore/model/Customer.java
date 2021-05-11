@@ -39,6 +39,7 @@ public class Customer {
         this.landMark = customerDto.getLandMark();
         this.locationType = customerDto.getLocationType();
         this.pinCode = customerDto.getPinCode();
+        this.userId=customerDto.getUserId();
     }
 
 }
