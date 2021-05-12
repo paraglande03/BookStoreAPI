@@ -31,16 +31,16 @@ public class Cart {
 	@GenericGenerator(name = "uuid2" , strategy = "uuid2")
 	@Type(type = "uuid-char")
 	private UUID cartId;
-
-	@OneToMany
-	private List<Book> book;
-
 	private Integer orderQuantity;
-
 	private boolean isInWishList;
+
+	@ManyToOne
+	@JoinColumn(name = "book_id")
+	private Book book;
+
 
 	@Transient
 	public double getSubTotal() {
-		return this.book.get(0).getPrice() * orderQuantity;
+		return this.book.getPrice() * orderQuantity;
 	}
 }

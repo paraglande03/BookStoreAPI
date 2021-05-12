@@ -38,16 +38,16 @@ public class Book {
 	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	@Type(type = "uuid-char")
 	private UUID bookId;
-	@Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\s]{2,}$", message = " author Name is Invalid")
+	//@Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\s]{2,}$", message = " author Name is Invalid")
 	private String authorName;
 
-	@Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\s]{2,}$", message = " Book Name is Invalid")
+	//@Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\s]{2,}$", message = " Book Name is Invalid")
 	private String bookName;
 	
-	@NotNull(message = "quantity Should Not be empty")
+	//@NotNull(message = "quantity Should Not be empty")
 	private Integer quantity;
 	
-	@NotBlank(message = "Price Cannot be empty")
+	//@NotBlank(message = "Price Cannot be empty")
 	public Double price;
 	
 	private String bookDetails;
