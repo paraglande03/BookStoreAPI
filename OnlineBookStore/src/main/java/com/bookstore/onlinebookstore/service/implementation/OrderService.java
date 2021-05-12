@@ -15,9 +15,6 @@ import java.util.UUID;
 public class OrderService {
 
     @Autowired
-    private BookStoreRepository bookStoreRepository;
-
-    @Autowired
     private CartRepository cartRepository;
 
     @Autowired
@@ -40,8 +37,6 @@ public class OrderService {
 
         orderRepository.save(order);
         resetCart(cartID);
-
-
         return order;
     }
 
