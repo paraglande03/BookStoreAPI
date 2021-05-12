@@ -35,6 +35,7 @@ public class Book {
 	@GenericGenerator(name = "uuid2" , strategy = "uuid2")
 	@Type(type = "uuid-char")
 	private UUID bookId;
+
 	private String authorName;
 	private String bookName;
 

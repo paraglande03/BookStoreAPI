@@ -1,5 +1,6 @@
 package com.bookstore.onlinebookstore.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -40,8 +41,7 @@ public @Data class Order {
 	private long pinCode;
 
 	@CreationTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date orderDate;
+	private LocalDate orderDate;
 
 	@OneToMany()
 	public List<Cart> cartItems;
