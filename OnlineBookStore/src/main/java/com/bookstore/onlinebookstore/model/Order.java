@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,6 +20,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import com.bookstore.onlinebookstore.dto.CustomerDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -38,32 +40,31 @@ public @Data class Order {
 	private List<Book> book;
 
 	private double totalPrice;
-	private String fullName;
-	private String phoneNumber;
-
-	private String address;
-	private String city;
-	private String state;
-	private LocationType type;
-	private long pinCode;
+	/*
+	 * private String fullName; private String phoneNumber;
+	 * 
+	 * private String address; private String city; private String state; private
+	 * LocationType type; private long pinCode;
+	 */
 
 	@CreationTimestamp
 	private LocalDate orderDate;
+	@OneToOne(cascade = CascadeType.DETACH)
+	private Customer customer;
 
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.DETACH)
 	public List<Cart> cartItems;
 
-	public Order(CustomerDto customerDto) {
-
-		this.fullName = customerDto.getFullName();
-		this.address = customerDto.getAddress();
-		this.city = customerDto.getCity();
-		this.phoneNumber = customerDto.getPhoneNumber();
-		this.pinCode = customerDto.getPinCode();
-		this.type = customerDto.getType();
-		this.state = customerDto.getState();
-		this.orderId = orderId;
-
-	}
+	/*
+	 * public Order(CustomerDto customerDto) {
+	 * 
+	 * this.fullName = customerDto.getFullName(); this.address =
+	 * customerDto.getAddress(); this.city = customerDto.getCity(); this.phoneNumber
+	 * = customerDto.getPhoneNumber(); this.pinCode = customerDto.getPinCode();
+	 * this.type = customerDto.getType(); this.state = customerDto.getState();
+	 * this.orderId = orderId;
+	 * 
+	 * }
+	 */
 
 }
