@@ -1,5 +1,6 @@
 package com.bookstore.onlinebookstore.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.bookstore.onlinebookstore.model.Customer;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    @Query(value = "select * from customer where user_id=:userId", nativeQuery = true)
-    Optional<Customer> findByUserId(Long userId);
+	Customer findByUserId(Long userId);
+
+   
 }

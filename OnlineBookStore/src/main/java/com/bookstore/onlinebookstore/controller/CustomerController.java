@@ -5,10 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookstore.onlinebookstore.dto.CustomerDto;
@@ -33,12 +35,12 @@ public class CustomerController {
 		String responseMessage = customerService.addCustomerDetails(customer, userId);
 		return new ResponseEntity<>(new Response(responseMessage), HttpStatus.OK);
 	}
-
 	@ApiOperation("For fetching customer details")
-	@GetMapping("/details")
-	public ResponseEntity<Response> getCustomerDetails(@RequestHeader(value = "userId") Long userId) {
+	@GetMapping("/details/{userId}")
+	public ResponseEntity<Response> getCustomerDetails(@PathVariable(value = "userId") Long userId) {
 		Customer userDetails = customerService.getCustomerDetails(userId);
-		Response response = new Response("Customer details sent successfully", userDetails);
+		Response response = new Response("Customer details got successfully", userDetails);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+
 }
