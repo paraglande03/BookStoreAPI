@@ -6,9 +6,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.UUID;
 
 
-public interface CartRepository extends JpaRepository<Cart, Integer> {
+public interface CartRepository extends JpaRepository<Cart, UUID> {
 
     @Query(value = "select * from cart_items where user_id=:userId", nativeQuery = true)
     public List<Cart> findByUserId(Long userId);
@@ -18,16 +19,16 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
 
     @Query("UPDATE Cart c SET c.orderQuantity=?1 WHERE c.book.bookId=?2 ")
     @Modifying
-    public void updateOrderQuantity(Integer order_quantity, Long bookId);
+    public void updateOrderQuantity(Integer order_quantity, UUID bookId);
 
     @Query("DELETE FROM Cart c WHERE  c.book.bookId=?2")
     @Modifying
-    public void deleteByUserAndBook(Long userId, Long bookId);
+    public void deleteByUserAndBook(Long userId, UUID bookId);
 
     @Query(value = "select * from cart_items where  user_id=:userId and book_id=:bookId", nativeQuery = true)
-    public Cart findByUserIdAndBookId(Long userId, Long bookId);
+    public Cart findByUserIdAndBookId(Long userId, UUID bookId);
 
     @Query(value = "select book_id from cart_items where book_id=:bookId", nativeQuery = true)
-    Long findDuplicateBookId(Long bookId);
+    UUID findDuplicateBookId(UUID bookId);
 
 }

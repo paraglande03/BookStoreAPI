@@ -1,6 +1,7 @@
 package com.bookstore.onlinebookstore.model;
 
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,8 @@ import javax.persistence.TemporalType;
 
 import com.bookstore.onlinebookstore.dto.BookDTO;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
@@ -28,8 +31,10 @@ import lombok.NoArgsConstructor;
 public class Book {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long bookId;
+	@GeneratedValue(generator = "uuid2")
+	@GenericGenerator(name = "uuid2" , strategy = "uuid2")
+	@Type(type = "uuid-char")
+	private UUID bookId;
 	private String authorName;
 	private String bookName;
 

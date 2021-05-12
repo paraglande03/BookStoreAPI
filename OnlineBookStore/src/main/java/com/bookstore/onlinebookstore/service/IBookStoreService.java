@@ -4,6 +4,7 @@ import com.bookstore.onlinebookstore.dto.BookDTO;
 import com.bookstore.onlinebookstore.model.Book;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface IBookStoreService {
 
@@ -11,11 +12,11 @@ public interface IBookStoreService {
 
     public Book createBookData(BookDTO bookDTO);
 
-	public Book getBookDataByBookId(long bookId);
+	public Book getBookDataByBookId(UUID bookId);
 
-	public void deleteBookDataByBookId(long bookId);
+	public void deleteBookDataByBookId(UUID bookId);
 
-    public Book updateBookDataByBookId(long bookId, BookDTO bookDTO);
+    public Book updateBookDataByBookId(UUID bookId, BookDTO bookDTO);
 
     long count();
 

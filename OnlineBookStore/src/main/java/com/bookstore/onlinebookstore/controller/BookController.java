@@ -1,6 +1,7 @@
 package com.bookstore.onlinebookstore.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 
 import com.bookstore.onlinebookstore.dto.BookDTO;
@@ -40,14 +41,14 @@ public class BookController {
 
 	@ApiOperation("For deleting a book details by book id")
 	@DeleteMapping("/delete/{bookId}")
-	public ResponseEntity<Response> deleteBookDataByBookId(@PathVariable("bookId") long bookId) {
+	public ResponseEntity<Response> deleteBookDataByBookId(@PathVariable("bookId") UUID bookId) {
 		bookStoreService.deleteBookDataByBookId(bookId);
 		return new ResponseEntity<>(new Response("Deleted successfully!!", "Deleted id:" + bookId), HttpStatus.OK);
 	}
 
     @ApiOperation("To get book by book id")
     @GetMapping("/getBook/{bookId}")
-    public ResponseEntity<Response> getBookDataByBookId(@PathVariable("bookId") long bookId)  {
+    public ResponseEntity<Response> getBookDataByBookId(@PathVariable("bookId") UUID bookId)  {
         Book booksList = bookStoreService.getBookDataByBookId(bookId);
         if (booksList != null)
             return new ResponseEntity<>(new Response( "Get call for ID successfull", booksList), HttpStatus.OK);
@@ -56,7 +57,7 @@ public class BookController {
 
     @ApiOperation("For updating a book details by book id")
     @PutMapping("/update/{bookId}")
-    public ResponseEntity<Response> updateBookDataByBookId(@PathVariable("bookId") long bookId,
+    public ResponseEntity<Response> updateBookDataByBookId(@PathVariable("bookId") UUID bookId,
                                                            @RequestBody BookDTO bookDTO) {
         Book booksList = bookStoreService.updateBookDataByBookId(bookId, bookDTO);
         return new ResponseEntity<>(new Response( "Updated book data successfully!!", booksList), HttpStatus.OK);
