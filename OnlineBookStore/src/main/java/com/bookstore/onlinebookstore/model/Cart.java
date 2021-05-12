@@ -1,6 +1,7 @@
 package com.bookstore.onlinebookstore.model;
 
 import java.beans.Transient;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -32,13 +33,14 @@ public class Cart {
 	private UUID cartId;
 
 	@OneToMany
-	@JoinColumn(name = "book_id")
-	private Book book;
+	private List<Book> book;
+
 	private Integer orderQuantity;
+
 	private boolean isInWishList;
 
 	@Transient
 	public double getSubTotal() {
-		return this.book.getPrice() * orderQuantity;
+		return this.book.get(0).getPrice() * orderQuantity;
 	}
 }
