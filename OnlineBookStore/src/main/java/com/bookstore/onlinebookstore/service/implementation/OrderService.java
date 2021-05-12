@@ -2,9 +2,11 @@ package com.bookstore.onlinebookstore.service.implementation;
 
 import com.bookstore.onlinebookstore.dto.CustomerDto;
 import com.bookstore.onlinebookstore.model.Cart;
+import com.bookstore.onlinebookstore.model.Customer;
 import com.bookstore.onlinebookstore.model.Order;
 import com.bookstore.onlinebookstore.repository.BookStoreRepository;
 import com.bookstore.onlinebookstore.repository.CartRepository;
+import com.bookstore.onlinebookstore.repository.CustomerRepository;
 import com.bookstore.onlinebookstore.repository.OrderRepository;
 import com.bookstore.onlinebookstore.service.IOrderService;
 
@@ -24,7 +26,8 @@ public class OrderService  implements IOrderService{
     @Autowired
     private OrderRepository orderRepository;
     
-    
+    @Autowired
+    private CustomerRepository customerRepository;
 	/*
 	 * @Override public Order getSummary() {
 	 * 
@@ -34,21 +37,25 @@ public class OrderService  implements IOrderService{
 
     public Order placeOrder(UUID cartID, CustomerDto customerDto){
         Order order =new Order();
+       
+        order.setOrderDate(LocalDate.now());
         Cart cart = cartRepository.findById(cartID).orElseThrow();
         List<Cart> cartList = new ArrayList<Cart>();
         cartList.add(cart);
-
         order.setCartItems(cartList);
-        order.setOrderDate(LocalDate.now());
-        order.setFullName(customerDto.getFullName());
-        order.setPhoneNumber(customerDto.getPhoneNumber());
-        order.setCity(customerDto.getCity());
-        order.setState(customerDto.getState());
-        order.setType(customerDto.getType());
-        order.setPinCode(customerDto.getPinCode());
-
+        
+        Customer customer= new Customer(customerDto);
+       
+        customer.setFullName(customerDto.getFullName());
+        customer.setPhoneNumber(customerDto.getPhoneNumber());
+        customer.setCity(customerDto.getCity());
+        customer.setState(customerDto.getState());
+        customer.setType(customerDto.getType());
+        customer.setPinCode(customerDto.getPinCode());
+        customerRepository.save(customer);
+        order.setCustomer(customer);
         orderRepository.save(order);
-        resetCart(cartID);
+      //  resetCart(cartID);
         return order;
     }
 
