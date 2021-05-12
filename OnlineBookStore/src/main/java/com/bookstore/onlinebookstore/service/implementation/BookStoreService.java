@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class BookStoreService implements IBookStoreService {
@@ -31,17 +32,17 @@ public class BookStoreService implements IBookStoreService {
 		return bookstoreRepository.save(bookData);
 	}
 
-	public Book getBookDataByBookId(long bookId) {
+	public Book getBookDataByBookId(UUID bookId) {
 		return bookstoreRepository.findById(bookId).orElse(null);
 	}
 
 	@Override
-	public void deleteBookDataByBookId(long bookId) {
+	public void deleteBookDataByBookId(UUID bookId) {
 		Book bookData = this.getBookDataByBookId(bookId);
 		bookstoreRepository.delete(bookData);
 	}
 	@Override
-	public Book updateBookDataByBookId(long bookId, BookDTO bookDTO) {
+	public Book updateBookDataByBookId(UUID bookId, BookDTO bookDTO) {
 		Book bookData = this.getBookDataByBookId(bookId);
 		bookData.updateBookDataByBookId(bookDTO);
 		return bookstoreRepository.save(bookData);
