@@ -45,7 +45,8 @@ public class OrderService  implements IOrderService{
         order.setCartItems(cartList);
         
         Customer customer= new Customer(customerDto);
-       
+       // List<Cart> cart = cartRepository.findByUserId(userId);
+        double totalPrice = cartList.stream().mapToDouble(book -> book.getSubTotal()).sum();
         customer.setFullName(customerDto.getFullName());
         customer.setPhoneNumber(customerDto.getPhoneNumber());
         customer.setCity(customerDto.getCity());
@@ -54,6 +55,7 @@ public class OrderService  implements IOrderService{
         customer.setPinCode(customerDto.getPinCode());
         customerRepository.save(customer);
         order.setCustomer(customer);
+        order.setTotalPrice(totalPrice);
         orderRepository.save(order);
       //  resetCart(cartID);
         return order;

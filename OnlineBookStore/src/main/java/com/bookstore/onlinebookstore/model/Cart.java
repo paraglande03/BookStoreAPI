@@ -19,6 +19,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -33,7 +35,7 @@ public class Cart {
 	private UUID cartId;
 	private Integer orderQuantity;
 	private boolean isInWishList;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "book_id")
 	private Book book;
