@@ -18,14 +18,19 @@ public interface CartRepository extends JpaRepository<Cart , UUID> {
 
     @Query("UPDATE Cart c SET c.orderQuantity=?1 WHERE c.book.bookId=?2 ")
     @Modifying
-    public void updateOrderQuantity(Integer order_quantity, UUID bookId);
+    void updateOrderQuantity(Integer order_quantity, UUID bookId);
 
     @Query("DELETE FROM Cart c WHERE c.book.bookId=?1")
     @Modifying
-    public void deleteByBook(UUID bookId);
+    void deleteByBook(UUID bookId);
 
     @Query(value = "select * from cart_items where book_id=:bookId", nativeQuery = true)
-    public Cart findByBookId(UUID bookId);
+    Cart findByBookId(UUID bookId);
+
+    Cart findCartByBook_BookId(UUID bookID);
+
+
+
 
     @Query(value = "select book_id from cart_items where book_id=:bookId", nativeQuery = true)
     Long findDuplicateBookId(UUID bookId);

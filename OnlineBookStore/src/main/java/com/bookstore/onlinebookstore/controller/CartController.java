@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/carts")
+@RequestMapping("/cart")
 public class CartController
 {
     @Autowired
@@ -20,14 +20,14 @@ public class CartController
 
 
     @ApiOperation(value = "For getting all books in the cart")
-    @GetMapping("/get")
+    @GetMapping("/all")
     public ResponseEntity<Response> showCart() {
         List<Cart> userCart = iCartService.listCartItems();
         return new ResponseEntity<>(new Response( "Got all books from cart successfully", userCart), HttpStatus.OK);
     }
 
     @ApiOperation(value = "For getting count of all books in the cart")
-    @GetMapping("/getCount")
+    @GetMapping("/count")
     public int showCartCount() {
         List<Cart> userCart = iCartService.listCartItems();
         return userCart.size();
@@ -82,4 +82,11 @@ public class CartController
     public Response addBookFromWishlistToCart(@PathVariable("bookId") UUID bookId) {
         return iCartService.addBookFromWishlistToCart(bookId);
     }
+
+    @ApiOperation(value = "For adding book to wishlist")
+    @GetMapping("/get/{bookId}")
+    public Cart findCartByBook_BookId(@PathVariable("bookId") UUID bookId) {
+        return iCartService.findCartByBook_BookId(bookId);
+    }
+
 }

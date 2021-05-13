@@ -26,7 +26,7 @@ public class BookController {
 	public IBookStoreService bookStoreService;
 
 	@ApiOperation("For getting all books")
-	@GetMapping("/getBooks")
+	@GetMapping("/all")
 	public ResponseEntity<Response> getAllBooks() {
 		List<Book> booksList = bookStoreService.getAllBooks();
 		if (booksList != null)

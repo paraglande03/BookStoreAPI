@@ -4,7 +4,6 @@ import com.bookstore.onlinebookstore.dto.CustomerDto;
 import com.bookstore.onlinebookstore.model.Cart;
 import com.bookstore.onlinebookstore.model.Customer;
 import com.bookstore.onlinebookstore.model.Order;
-import com.bookstore.onlinebookstore.repository.BookStoreRepository;
 import com.bookstore.onlinebookstore.repository.CartRepository;
 import com.bookstore.onlinebookstore.repository.CustomerRepository;
 import com.bookstore.onlinebookstore.repository.OrderRepository;
@@ -28,12 +27,6 @@ public class OrderService  implements IOrderService{
     
     @Autowired
     private CustomerRepository customerRepository;
-	/*
-	 * @Override public Order getSummary() {
-	 * 
-	 * Optional<Order> orders = orderRepository.findByUserId(userId); return
-	 * orders.get(); }
-	 */
 
     public Order placeOrder(UUID cartID, CustomerDto customerDto){
         Order order =new Order();
@@ -45,7 +38,6 @@ public class OrderService  implements IOrderService{
         order.setCartItems(cartList);
         
         Customer customer= new Customer(customerDto);
-       // List<Cart> cart = cartRepository.findByUserId(userId);
         double totalPrice = cartList.stream().mapToDouble(book -> book.getSubTotal()).sum();
         customer.setFullName(customerDto.getFullName());
         customer.setPhoneNumber(customerDto.getPhoneNumber());

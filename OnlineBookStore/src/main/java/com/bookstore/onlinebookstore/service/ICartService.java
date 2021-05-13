@@ -25,5 +25,6 @@ public interface ICartService
     List<Cart> deleteBookFromWishlist(UUID bookId);
 
     Response addBookFromWishlistToCart(UUID bookId);
+    Cart findCartByBook_BookId(UUID bookID);
 
 }

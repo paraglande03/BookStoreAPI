@@ -97,5 +97,10 @@ public class CartService implements ICartService {
         return null;
     }
 
+    @Override
+    public Cart findCartByBook_BookId(UUID bookID) {
+        return cartRepository.findCartByBook_BookId(bookID);
+    }
+
 }
 
