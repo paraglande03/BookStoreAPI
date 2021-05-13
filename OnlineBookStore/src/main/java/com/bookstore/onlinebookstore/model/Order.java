@@ -40,12 +40,7 @@ public @Data class Order {
 	private List<Book> book;
 
 	private double totalPrice;
-	/*
-	 * private String fullName; private String phoneNumber;
-	 * 
-	 * private String address; private String city; private String state; private
-	 * LocationType type; private long pinCode;
-	 */
+	
 
 	@CreationTimestamp
 	private LocalDate orderDate;
@@ -55,16 +50,6 @@ public @Data class Order {
 	@OneToMany(cascade = CascadeType.DETACH)
 	public List<Cart> cartItems;
 
-	/*
-	 * public Order(CustomerDto customerDto) {
-	 * 
-	 * this.fullName = customerDto.getFullName(); this.address =
-	 * customerDto.getAddress(); this.city = customerDto.getCity(); this.phoneNumber
-	 * = customerDto.getPhoneNumber(); this.pinCode = customerDto.getPinCode();
-	 * this.type = customerDto.getType(); this.state = customerDto.getState();
-	 * this.orderId = orderId;
-	 * 
-	 * }
-	 */
+
 
 }
